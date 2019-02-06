@@ -1,13 +1,20 @@
-##Technologies:
-    -Libraries: 
-        -React
-    -Frameworks: 
-        -Next.js
-    -Hosting service: 
-        -Firebase hosting
+# Technologies:
+* ## Libraries:
+    * ### React
+* ## Frameworks:
+    * ### Next.js
+* ## Hosting service:
+    * ### Firebase hosting
+<hr/>
 
-##Architecture Design:
+# Architecture Design:
 
-##Installation:
+<hr/>
 
-##Deployment:
+# Installation:
+
+<hr/>
+
+# Deployment:
+
+<hr/>
