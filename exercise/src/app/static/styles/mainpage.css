@@ -1,0 +1,54 @@
+body {
+    background-color: #222;
+    position: absolute;
+}
+#menuBar {
+    position: absolute;
+    margin-top: 2vh;
+    background-color: dimgray;
+    left: 0vw;
+    width: 100vw;
+    height: 4.6em;    
+}
+img {
+    position: fixed;
+    top: 5vh;
+    margin-left: 3vw;
+    width: 8vw;
+    height: 4vh;
+}
+h3 {
+    position: fixed;
+    top: 4vh;
+    color: #ffd000;
+    font-size: 2.5vw;
+    margin-left: 7vw;
+    text-shadow: 2px 1px #fff6cc;  
+}
+#divider {
+    position: absolute;
+    top: 4.6vh;
+    left: 71vw;
+    height: 4.7vh; 
+}
+#dropdownSort {
+    float: right;
+    width: 20vw;
+    margin-top: 2vh;
+    margin-right: 6vw;
+}
+#dropdownSearch {
+    float: left;
+    width: 50vw;
+    margin-top: 2vh;
+    margin-left: 18vw;
+}
+#moviesList {
+    position: absolute;
+    margin-top: 15vh;
+    background-color: rgb(255, 255, 255);
+    margin-left: 3vw;
+    margin-right: 3vw;
+    width: 94vw;
+    height: 80vh;  
+}

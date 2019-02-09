@@ -1,0 +1,21 @@
+body {
+    background-color: #222;
+    position: absolute;
+}
+.welcomeBTN {
+    position: relative;
+    top: 20vh;
+    left: 45vw;
+    width: 15vw;
+    height: 2vh;
+    text-decoration-color: #222;
+}
+img {
+    position: relative;
+    width: 58vw;
+    height: 46vh;
+    top: 12vh;
+    left: 22vw;
+    justify-content: center;
+    align-items: center;
+}

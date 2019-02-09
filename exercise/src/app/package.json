@@ -1,16 +1,46 @@
 {
   "name": "movie-ticket-machine",
   "version": "1.0.0",
+  "description": "movie ticket machine system with React",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/JPatchara/Movie-ticket-machine.git"
+  },
   "dependencies": {
     "@zeit/next-css": "^1.0.1",
+    "babel-jest": "^24.1.0",
+    "enzyme": "^3.8.0",
+    "express": "^4.16.4",
+    "jest": "^24.1.0",
     "next": "^8.0.0-canary.18",
     "react": "^16.7.0",
-    "react-awesome-button": "^5.0.0",
-    "react-dom": "^16.7.0"
+    "react-dom": "^16.7.0",
+    "semantic-ui-css": "^2.4.1",
+    "semantic-ui-react": "^0.85.0"
   },
   "scripts": {
     "dev": "next",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "lint": "eslint app",
+    "test": "jest",
+    "test-watch": "jest --watch",
+    "test-coverage": "jest --coverage"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.2.2",
+    "@babel/preset-env": "^7.3.1",
+    "@babel/preset-react": "^7.0.0",
+    "babel": "^6.23.0",
+    "babel-loader": "^8.0.5",
+    "css-loader": "^2.1.0",
+    "enzyme": "^3.8.0",
+    "enzyme-adapter-react-16": "^1.9.1",
+    "eslint": "^5.13.0",
+    "jest": "^24.1.0",
+    "path": "^0.12.7",
+    "webpack": "^4.29.3",
+    "webpack-cli": "^3.2.3"
   }
 }

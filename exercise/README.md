@@ -5,7 +5,10 @@
         -Next.js
     -Hosting service: 
         -Firebase hosting
-
+    -Testing tool:
+        -Jest
+    Database(No-SQL):
+        -Firebase database
 ##Architecture Design:
 
 ##Installation:
