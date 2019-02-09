@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Technologies:
 * ## Libraries:
     * ### React
@@ -13,7 +12,6 @@
 <hr/>
 
 # Architecture Design:
->>>>>>> 7c444cd870ca212e1a404b6444a297a1525bc087
 
 <hr/>
 
