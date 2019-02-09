@@ -1,16 +1,26 @@
-##Technologies:
-    -Libraries: 
-        -React
-    -Frameworks: 
-        -Next.js
-    -Hosting service: 
-        -Firebase hosting
-    -Testing tool:
-        -Jest
-    Database(No-SQL):
-        -Firebase database
-##Architecture Design:
+<<<<<<< HEAD
+# Technologies:
+* ## Libraries:
+    * ### React
+* ## Frameworks:
+    * ### Next.js
+* ## Hosting service:
+    * ### Firebase hosting
+* ## Testing tool:
+    * ### Jest
+* ## Database(No-SQL):
+    * ### Firebase database
+<hr/>
 
-##Installation:
+# Architecture Design:
+>>>>>>> 7c444cd870ca212e1a404b6444a297a1525bc087
 
-##Deployment:
+<hr/>
+
+# Installation:
+
+<hr/>
+
+# Deployment:
+
+<hr/>
