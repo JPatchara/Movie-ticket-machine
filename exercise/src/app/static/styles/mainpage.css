@@ -52,3 +52,12 @@ h3 {
     width: 94vw;
     height: 80vh;  
 }
+#listContainer {
+    position: relative;
+    margin-top: 15vh;
+    background-color: rgb(148, 147, 147);
+    margin-left: 15vw;
+    margin-top: 2vh;
+    width: 64vw;
+    height: 20vh;  
+}
