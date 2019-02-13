@@ -13,92 +13,68 @@ const sortOptions = [{
         value: 'Price'
     }]
 var moviesSearch = new Array()
-var moviesName = new Array()
 const db = fireST.firestore()
 const moviesRef = db.collection("MoviesDetails")
-
 moviesRef.get().then(function(querySnapshot) {
     querySnapshot.forEach(function(doc) {
         moviesSearch.push({text:doc.data().Name, value:doc.data().Name}) // add data to array
     })
 })
-moviesRef.get().then(function(querySnapshot) {
-    querySnapshot.forEach(function(doc) {
-        moviesName.push(doc.data().Name) // add data to array
-    })
-})
-// setTimeout(function() {
-//     console.log(moviesName[3])
-// }, 2000);
-class Movies extends React.Component {   
-    render() {
-        return (
-            <div> 
-            { this.props.value }
-            </div>
-            // <div>
-            //     <div>
-            //         <div>
-            //             <img src=""/>
-            //         </div>
-            //         <div>
-            //             <a>{this.props.value}</a>
-            //             <div>
-            //                 <span>{this.props.value}</span>
-            //             </div>
-            //             <div>
-            //                 <p>{this.props.value}</p>
-            //             </div>
-            //             <div>
-            //                 <div>
-            //                     Buy tickets
-            //                     <i></i>
-            //                 </div>
-            //             </div>
-            //         </div>
-            //     </div>
-            // </div>
-        );
-    }
-}
-class MoviesContainer extends React.Component {   
-    render() {
-        var element_name = []
-        element_name.push("DareDevil")
-        // element_name.push(moviesName[1])
-        console.log(moviesName)
 
-        // var elements=[]
-        for(var i=0;i<moviesName.length;i++){
-                element_name.push(<Movies value={ moviesName } />)
-            console.log(element_name)
+class MoviesContainer extends React.Component {
+    constructor(props) {
+        super(props)
+        this.ref = fireST.firestore().collection('MoviesDetails');
+        this.unsubscribe = null;
+        this.state = {
+            MoviesName: []
         }
-        console.log(element_name)
+    }
+    onCollectionUpdate = (querySnapshot) => {
+        const MoviesName = [];
+        querySnapshot.forEach((doc) => {
+            const Data = doc.data()
+            MoviesName.push({
+                name: Data.Name,
+                price: Data.Price,
+                tagline: Data.Tagline,
+                image: Data.Image
+            });
+        });
+        this.setState({ MoviesName });
+    }
+    componentDidMount() {
+        this.unsubscribe = this.ref.onSnapshot(this.onCollectionUpdate);
+    }
+
+    render() {
         return (
-            // <div> 
-            // {element_name}
-            // </div>
-            <div className="ui divided items">
-                <div className="item">
-                    <div className="image">
-                        <img src=""/>
+            <div className="ui divided items" style={{flex: 1}}>
+                {this.state.MoviesName.map(movie =>
+                <div className="item" style={{backgroundColor:'rgba(117, 174, 187, 0.34)'}}>
+                    <div className="image" style={{float: 'top', bottom: 3.2+'vmin'}}>
+                        <img style={{position: 'relative', width: 15+'vmin', 
+                         height: 21+'vmin', bottom: 3+'vmin'}} 
+                         src={movie.image}
+                        />
                     </div>
                     <div className="content">
-                        <a className="header">{element_name}</a>
-                        <div className="meta">
-                            <span className="cinema">Tagline</span>
+                        <a className="header" style={{marginTop: 2+'vmin'}}>{movie.name}</a>
+                        <div className="meta" style={{marginTop: 3+'vmin'}}>
+                            <span className="cinema">{movie.tagline}</span>
                         </div>
                         <div className="description">
-                            <p></p>
+                        <p>Price: &nbsp;&nbsp;&nbsp;&nbsp;{movie.price}&nbsp;&nbsp;&nbsp;Baht</p>
                         </div>
                         <div className="extra">
-                            <div className="ui right floated primary button" style={{marginRight: 1 +'em', marginTop: 2 +'em'}}>
+                            <div className="ui right floated primary button" style={{marginRight: 1 +'em', marginTop: 3 +'em'}}>
                                 Buy tickets
                                 <i className="right chevron icon"></i>
                             </div>
                         </div>
                     </div>
                 </div>
+                )}
             </div>
         );
     }
@@ -114,7 +90,6 @@ export default () =>
         </Head>
         <div id="menuBar">
             <div id="textImg">
-                {/* <img src="../static/images/Movies.jpg" /> */}
                 <h3>MOVIES</h3>
             </div>
             <Dropdown id="dropdownSort" placeholder='Sort by' fluid selection options={sortOptions} />

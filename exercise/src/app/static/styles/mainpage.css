@@ -18,8 +18,8 @@ img {
     height: 4vh;
 }
 h3 {
-    position: fixed;
-    top: 4vh;
+    position: absolute;
+    top: 1.5vh;
     color: #ffd000;
     font-size: 2.5vw;
     margin-left: 7vw;
@@ -45,19 +45,19 @@ h3 {
 }
 #moviesList {
     position: absolute;
+    clear: both;
+    overflow: scroll;
     margin-top: 15vh;
     background-color: rgb(255, 255, 255);
     margin-left: 3vw;
     margin-right: 3vw;
     width: 94vw;
-    height: 80vh;  
+    height: 82vh;
 }
 #listContainer {
     position: relative;
-    margin-top: 15vh;
-    background-color: rgb(148, 147, 147);
-    margin-left: 15vw;
     margin-top: 2vh;
-    width: 64vw;
+    margin-left: 15vw;
+    width: 65vw;
     height: 20vh;  
 }
