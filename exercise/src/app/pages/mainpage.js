@@ -17,27 +17,35 @@ class Mainpage extends React.Component {
             MoviesName: [],
             showModal: 0,
             list_count: 0,
-            value: ''
+            value_sortby: '',
+            value_name: ''
         }
     }
 
-    onChange = (e, { value }) => {
+    onChangeSortby = (e, { value }) => {
         this.setState({ value: value })
-        console.log(value)
-        console.log(this.state.value)
-        var selection = value
-        if (selection == 'Price(Lower)') {
+        var selection_sortby = value
+
+        if (selection_sortby == 'Price(Lower)') {
             this.unsubscribe = this.ref.orderBy('Price', 'asc').onSnapshot(this.onCollectionUpdate);
-        } else if (selection == 'Price(Higher)') {
+        } else if (selection_sortby == 'Price(Higher)') {
             this.unsubscribe = this.ref.orderBy('Price', 'desc').onSnapshot(this.onCollectionUpdate);
-        } else if (selection == 'Date & Time(Older)') {
+        } else if (selection_sortby == 'Date & Time(Older)') {
             this.unsubscribe = this.ref.orderBy('Date', 'desc').onSnapshot(this.onCollectionUpdate);
-        } else if (selection == 'Date & Time(Newer)') {
+        } else if (selection_sortby == 'Date & Time(Newer)') {
             this.unsubscribe = this.ref.orderBy('Date', 'asc').onSnapshot(this.onCollectionUpdate);
-        } else if (selection == 'none') {
+        } else if (selection_sortby == 'none') {
             this.unsubscribe = this.ref.onSnapshot(this.onCollectionUpdate);
         } else { this.unsubscribe = this.ref.onSnapshot(this.onCollectionUpdate); }
     }
+
+    onChangeName = (e, { value }) => {
+        this.setState({ value: value })
+        var selection_name = value
+
+        this.unsubscribe = this.ref.where("Name", "==", selection_name).onSnapshot(this.onCollectionUpdate);
+    }
+
     onCollectionUpdate = (querySnapshot) => {
         const MoviesName = []
         var list_count = 1
@@ -62,7 +70,8 @@ class Mainpage extends React.Component {
 
 
     render() {
-        const { value } = this.state;
+        const { value } = this.state
+        // const { value_name } = this.state
         return (
             <App>
                 <Head>
@@ -76,9 +85,9 @@ class Mainpage extends React.Component {
                         <h3>MOVIES</h3>
                     </div>
                     <Dropdown id="dropdownSort" placeholder='Sort by' fluid selection 
-                     options={sortOptions} value={value} onChange={this.onChange}/>
+                     options={sortOptions} value={value} onChange={this.onChangeSortby}/>
                     <Dropdown id="dropdownSearch" placeholder='Search and select your movie' fluid search selection 
-                    options={moviesSearch}/>
+                    options={moviesSearch} value={value} onChange={this.onChangeName} />
                     <Divider id="divider" vertical></Divider>
                 </div>
                 <div id="moviesList">
@@ -93,14 +102,16 @@ class Mainpage extends React.Component {
     }
 }
 
-var moviesSearch = new Array()
+var moviesSearch = []
 const db = fireST.firestore()
 const moviesRef = db.collection("MoviesDetails")
+
 moviesRef.get().then(function(querySnapshot) {
     querySnapshot.forEach(function(doc) {
         moviesSearch.push({text:doc.data().Name, value:doc.data().Name})
     })
 })
+
 const sortOptions = [{
     text: 'Date & Time(Older)',
     value: 'Date & Time(Older)'
