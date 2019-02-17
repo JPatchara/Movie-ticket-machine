@@ -29,7 +29,11 @@ class DetailsModal extends Component {
     }
 
     goCheckOut = () => {
-        this.setState({ checkOut: true });
+        if(this.state.value > 0) {
+            this.setState({ checkOut: true });
+        } else {
+            window.confirm("Please choose number of your ticket.")
+        }
     }
     cancelCheckout = () => {
         this.setState({ checkOut: false });
@@ -90,13 +94,72 @@ class DetailsModal extends Component {
 
 class PaymentModal extends Component {
     
-    state = {
-        total_price: 0
-    };
+    constructor(props) {
+        super(props)
+        this.state = {
+            value: 0
+        }
+        this.ChangeCalculation = this.ChangeCalculation.bind(this)
+        this.AmountToChange = this.AmountToChange.bind(this)
+    }
 
-    // getChanges = () => {
+    AmountToChange(amount, change) {
+        if(amount === 0) {
+            return [];
+        } else {
+            if(amount >= change[0]) {
+                var left = (amount - change[0]);
+                return [change[0]].concat( this.AmountToChange(left, change) );
+            } else {
+                change.shift();
+                return this.AmountToChange(amount, change);
+            }
+        }
+    }
 
-    // }
+    ChangeCalculation() {
+        var paid = this.refs.paid.value
+        var total_price = this.props.total
+        var total_change = 0
+        var bills_and_coins = []
+        var num_coins = 0
+        var num_bills = 0
+        var bills = []
+        var coins = []
+        
+        
+        if(paid < total_price) {
+            window.alert("Please put more money for the payment.")
+        } else {
+            // find the total change
+            total_change = paid - total_price
+            // find number of bills and coins for the change
+            bills_and_coins = this.AmountToChange(total_change, [1000, 500, 100, 50, 20, 10, 5, 2, 1])
+            
+            for(let i = 0; i < bills_and_coins.length; i++) {
+                console.log(bills_and_coins[i])
+                if(bills_and_coins[i] <= 20) {
+
+                    num_coins = num_coins+1
+                    coins[num_coins] = bills_and_coins[i]
+
+                } else if(bills_and_coins[i] > 20) {
+                    console.log(bills_and_coins[i])
+                    num_bills = num_bills+1
+                    bills[num_bills] = bills_and_coins[i]
+
+                }
+            }
+
+            console.log(total_change)
+            console.log(bills_and_coins)
+            console.log(bills_and_coins.length)
+            console.log("You must get bills as follow: "+bills)
+            console.log("You must get coins as follow: "+coins)
+            console.log(num_coins)
+            console.log(num_bills)
+        }
+    }
 
     render() {
 
@@ -115,11 +178,13 @@ class PaymentModal extends Component {
                                 </p>
                                 <div style={paymentInputBG}>
                                     <p style={paymentInputText}>Please tab your payment here:</p>
-                                    <input style={paymentInput} type="number" min="0"></input>
+                                    <input style={paymentInput} type="number" 
+                                    pattern="[0-9]" step="1" min="0" ref="paid" placeholder="0.00"/>
                                 </div>
                             </div>
                         </div>
-                    <button className="ui blue button" style={submitBTN}> 
+                    <button className="ui blue button" style={submitBTN}
+                        onClick={this.ChangeCalculation}> 
                         <Icon className='money bill alternate'/>
                         Submit
                     </button>
