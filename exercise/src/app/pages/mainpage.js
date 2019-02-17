@@ -16,9 +16,7 @@ class Mainpage extends React.Component {
         this.state = {
             MoviesName: [],
             showModal: 0,
-            list_count: 0,
-            value_sortby: '',
-            value_name: ''
+            list_count: 0
         }
     }
 
@@ -57,7 +55,8 @@ class Mainpage extends React.Component {
                 name: Data.Name,
                 price: Data.Price,
                 tagline: Data.Tagline,
-                image: Data.Image
+                image: Data.Image,
+                date: Data.Date.toDate().toUTCString()
             });
             list_count = list_count+1
         });
@@ -92,7 +91,6 @@ class Mainpage extends React.Component {
                 </div>
                 <div id="moviesList">
                     <div id="listContainer">
-                        {/* <MoviesContainer/> */
                         <List data={this.state.MoviesName}/>}
                     </div>
                 </div>

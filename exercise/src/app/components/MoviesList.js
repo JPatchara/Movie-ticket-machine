@@ -1,20 +1,28 @@
 import React, { Component } from 'react'
 import 'semantic-ui-react'
 import { Button, Icon} from 'semantic-ui-react'
-import DetailsModal from './Modal.js'
+import DetailsModal from './DetailsModal.js'
+import PaymentModal from './PaymentModal'
 
 class List extends Component {
     state = {
-      showModal: 0
-    };
+      showModalDT: 0,
+      showModalPM: 0
+    }
   
-    getModal = value => {
-      this.setState({ showModal: value });
-    };
+    getModalDT = value => {
+      this.setState({ showModalDT: value });
+    }
+    getModalPM = value => {
+      this.setState({ showModalPM: value });
+    }
   
-    hideModal = value => {
-      this.setState({ showModal: 0 });
-    };
+    hideModalDT = value => {
+      this.setState({ showModalDT: 0 });
+    }
+    hideModalPM = value => {
+      this.setState({ showModalPM: 0 });
+    }
   
     render() {
       return (
@@ -31,21 +39,27 @@ class List extends Component {
                         <span className="cinema">{data.tagline}</span>
                     </div>
                     <div className="description">
-                        <p>Price: &nbsp;&nbsp;&nbsp;&nbsp;{data.price}&nbsp;&nbsp;&nbsp;Baht</p>
+                        <p>Price:&nbsp;&nbsp;&nbsp;&nbsp;{data.price}&nbsp;&nbsp;&nbsp;Baht</p>
+                        <p>Available on:&nbsp;&nbsp;{data.date}</p>
                     </div>
                     <div className="extra">
                         <Button className="ui right floated primary button" 
-                            style={btn} 
-                            onClick={() => this.getModal(data.id)}>
+                            style={btn} onClick={() => this.getModalDT(data.id)}>
                             <Icon className='cart' style={icon}/>
                             Buy tickets
                         </Button>
                         
                         <DetailsModal
-                            show={this.state.showModal === data.id}
-                            onHide={() => this.hideModal(data.id)}
+                            show={this.state.showModalDT === data.id}
+                            onHide={() => this.hideModalDT(data.id)}
                             name={data.name} image={data.image}
                             tagline={data.tagline}
+                            price={data.price}
+                        />
+                        <PaymentModal
+                          show={this.state.showModalPM === data.id}
+                          onHide={() => this.hideModalPM(data.id)}
+                          name={data.name} price={data.price}
                         />
                     </div>
                 </div>
@@ -71,7 +85,7 @@ const listImage = {
 }
 const btn = {
     marginRight: '1em',
-    marginTop: '3em'
+    marginTop: '-1em'
 }
 const icon = {
     marginRight: '2vmin'
