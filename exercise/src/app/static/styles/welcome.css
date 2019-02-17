@@ -12,10 +12,12 @@ body {
 }
 img {
     position: relative;
-    width: 58vw;
-    height: 46vh;
+    display: flex;
+    align-items: center;
+    max-width: 60vw;
+    max-height: 50vh;
     top: 12vh;
-    left: 22vw;
+    left: 32vw;
     justify-content: center;
     align-items: center;
 }

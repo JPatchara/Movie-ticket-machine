@@ -14,9 +14,7 @@ export default ({ pathname }) =>
         <img src="../static/images/Cinemalogo.png" />
         <div className="welcomeBTN">
             <Button color='yellow' onClick={() => window.location.href="/mainpage"}>
-                <a className={pathname === "/mainpage" && "is-active"}> 
-                    Choose your movie
-                </a>
+                <a>Choose your movie</a>
             </Button>
         </div>    
     </App>

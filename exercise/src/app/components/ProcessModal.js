@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import 'semantic-ui-react'
 import { Icon, Header} from 'semantic-ui-react'
+
 class DetailsModal extends Component {
 
     constructor(props) {
@@ -22,21 +23,19 @@ class DetailsModal extends Component {
         }
     }
     doIncrement() {
-        if(this.state.value < 60) {
-            this.setState({ value: this.state.value + 1 })
-            this.setState({totalPrice: (this.state.value+1)*this.props.price});
-        }
+        this.setState({ value: this.state.value + 1 })
+        this.setState({totalPrice: (this.state.value+1)*this.props.price})
     }
 
     goCheckOut = () => {
         if(this.state.value > 0) {
-            this.setState({ checkOut: true });
+            this.setState({ checkOut: true })
         } else {
             window.confirm("Please choose number of your ticket.")
         }
     }
     cancelCheckout = () => {
-        this.setState({ checkOut: false });
+        this.setState({ checkOut: false })
     }
 
     render() {
@@ -97,7 +96,14 @@ class PaymentModal extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            value: 0
+            value: 0,
+            submit: false,
+            bills_and_coins: [],
+            total_change: 0,
+            num_coins: 0,
+            num_bills: 0,
+            bills: [],
+            coins: []
         }
         this.ChangeCalculation = this.ChangeCalculation.bind(this)
         this.AmountToChange = this.AmountToChange.bind(this)
@@ -108,11 +114,11 @@ class PaymentModal extends Component {
             return [];
         } else {
             if(amount >= change[0]) {
-                var left = (amount - change[0]);
-                return [change[0]].concat( this.AmountToChange(left, change) );
+                var left = (amount - change[0])
+                return [change[0]].concat( this.AmountToChange(left, change) )
             } else {
-                change.shift();
-                return this.AmountToChange(amount, change);
+                change.shift()
+                return this.AmountToChange(amount, change)
             }
         }
     }
@@ -120,49 +126,58 @@ class PaymentModal extends Component {
     ChangeCalculation() {
         var paid = this.refs.paid.value
         var total_price = this.props.total
-        var total_change = 0
-        var bills_and_coins = []
-        var num_coins = 0
-        var num_bills = 0
-        var bills = []
-        var coins = []
-        
+        var changes = 0
+        var cash = []
+        var numCoins = 0
+        var numBills = 0
+        var bill= []
+        var coin= []
         
         if(paid < total_price) {
             window.alert("Please put more money for the payment.")
         } else {
             // find the total change
-            total_change = paid - total_price
+            this.setState({total_change: paid - total_price})
+            changes = paid - total_price
             // find number of bills and coins for the change
-            bills_and_coins = this.AmountToChange(total_change, [1000, 500, 100, 50, 20, 10, 5, 2, 1])
-            
-            for(let i = 0; i < bills_and_coins.length; i++) {
-                console.log(bills_and_coins[i])
-                if(bills_and_coins[i] <= 20) {
+            this.setState({bills_and_coins: this.AmountToChange(this.state.total_change, [1000, 500, 100, 50, 20, 10, 5, 2, 1])})
+            cash = this.AmountToChange(changes, [1000, 500, 100, 50, 20, 10, 5, 2, 1])
+            // this.setState({ bills_and_coins: bills_and_coins})
+            console.log(cash)
 
-                    num_coins = num_coins+1
-                    coins[num_coins] = bills_and_coins[i]
+            for(let i = 0; i < cash.length; i++) {
 
-                } else if(bills_and_coins[i] > 20) {
-                    console.log(bills_and_coins[i])
-                    num_bills = num_bills+1
-                    bills[num_bills] = bills_and_coins[i]
+                if(cash[i] < 20) {
+
+                    numCoins = numCoins + 1
+                    if (numCoins == 1) {
+                        coin[numCoins] = cash[i]
+                    } else { coin[numCoins] = ", "+cash[i] }
+
+                } else if(cash[i] >= 20) {
+
+                    numBills += 1
+                    if (numBills == 1) {
+                        bill[numBills] = cash[i]
+                    } else { bill[numBills] = ", "+cash[i] }
 
                 }
             }
-
-            console.log(total_change)
-            console.log(bills_and_coins)
-            console.log(bills_and_coins.length)
-            console.log("You must get bills as follow: "+bills)
-            console.log("You must get coins as follow: "+coins)
-            console.log(num_coins)
-            console.log(num_bills)
+            this.setState({num_coins: numCoins })
+            this.setState({num_bills: numBills })
+            this.setState({bills: bill })
+            this.setState({coins: coin })
         }
+
+        if(paid >= total_price) {
+            this.setState({ submit: true })
+        } else {
+            window.alert("Please put more money for the payment.")
+        }
+        
     }
 
     render() {
-
         return (
             <React.Fragment>
                 {this.props.show && (
@@ -190,6 +205,65 @@ class PaymentModal extends Component {
                     </button>
                     <button class="ui red button" style={backBTN} 
                         onClick={this.props.onClose}> Back
+                    </button>
+
+                    <EndProcessModal show={this.state.submit} bNc={this.state.bills_and_coins}
+                        totalChange={this.state.total_change} numC={this.state.num_coins}
+                        numB={this.state.num_bills} bills={this.state.bills}
+                        coins={this.state.coins}
+                    >
+                    </EndProcessModal>
+                </div>
+            </div>
+            )}
+            </React.Fragment>
+        );
+    }
+}
+
+class EndProcessModal extends Component {
+    
+    constructor(props) {
+        super(props)
+        this.state = {
+            value: 0,
+            submit: false
+        }
+        this.goEndProcess = this.goEndProcess.bind(this)
+        this.Exit = this.Exit.bind(this)
+        this.BuyMore = this.BuyMore.bind(this)
+    }
+
+    goEndProcess = () => {
+        this.setState({ submit: true })
+    }
+    Exit() { window.location.href = '/' }
+    BuyMore() { window.location.href = '/mainpage' }
+
+    render() {
+        return (
+            <React.Fragment>
+                {this.props.show && (
+                <div className='bg' style={endBG}>
+                    <div className="modal" style={endModal}>
+                        <div className="content" style={endContent}>
+                            <p style={thanks}>Thank you for using our service.</p><hr/><br/>
+                            <p style={remainded}>You will get&nbsp;&nbsp;&nbsp;
+                                {this.props.totalChange}&nbsp;&nbsp;&nbsp;Baht for the change.
+                            </p>
+                            <p style={remainded}>There are&nbsp;&nbsp;{this.props.numB}&nbsp;&nbsp;bills
+                                &nbsp;( {this.props.bills} )&nbsp;&nbsp;and&nbsp;&nbsp;
+                                {this.props.numC}&nbsp;&nbsp;coins
+                                ( {this.props.coins} )&nbsp;&nbsp;for the change.
+                            </p><br/>
+                            <p style={bless}>Have a great time!!!</p><hr/>
+                        </div>
+                    
+                    <button className="ui blue button" style={submitBTN}
+                        onClick={this.BuyMore}> Buy more 
+                    </button>
+                    <button class="ui red button" style={exitBTN} 
+                        onClick={this.Exit}> Exit
                     </button>
                 </div>
             </div>
@@ -324,7 +398,7 @@ const minusBtn ={
     background: 'rgba(255,255,102,0.6)',
     borderRadius: '2vmin 0.2vmin 0.2vmin 2vmin'
 }
-
+// Payment Modal Styles
 const paymentBG = {
     position: 'fixed',
     zIndex: '2',
@@ -388,6 +462,57 @@ const paymentInput = {
     padding: '2vmin',
     marginLeft: '8vmin',
     borderRadius: '2vmin 0.2vmin 0.2vmin 2vmin'
+}
+// End Process Modal Styles
+const endBG = {
+    position: 'fixed',
+    zIndex: '2',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    left: '0',
+    top: '0',
+    width: '100%',
+    height: '100%',
+    overflow: 'auto',
+    background: 'rgba(255,204,0,1)'
+}
+const endModal = {
+    position: 'relative',
+    zIndex: '3',
+    borderRadius: '1vmin 6vmin 1vmin 6vmin',
+    maxWidth: '155vmin',
+    maxHeight: '80vmin',
+    overflow: 'hidden',
+    padding: '2.5vmin',
+    boxShadow: '0 10px 30px 0 rgba(127, 127, 127, 0.3)',
+    background: 'rgb(255, 255, 255)'
+}
+const endContent = {
+    display: 'inline',
+    maxWidth: '155vmin',
+    maxHeight: '80vmin',
+    overflow: 'scroll'
+}
+const exitBTN = {
+    float: 'left',
+    width: '18vmin',
+    marginTop: '7vmin',
+    borderRadius: '0.7vmin 0.7vmin 0.7vmin 3vmin'
+}
+const thanks = {
+    textAlign: 'center',
+    color: 'black',
+    fontSize: '5vmin'
+}
+const remainded = {
+    color: 'black',
+    fontSize: '2.5vmin'
+}
+const bless = {
+    textAlign: 'center',
+    color: 'black',
+    fontSize: '5vmin'
 }
 
 export default DetailsModal

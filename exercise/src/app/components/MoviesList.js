@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import 'semantic-ui-react'
 import { Button, Icon} from 'semantic-ui-react'
-import DetailsModal from './DetailsModal.js'
+import DetailsModal from './ProcessModal.js'
 
 class List extends Component {
     state = {
