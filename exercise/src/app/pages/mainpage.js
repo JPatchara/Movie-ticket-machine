@@ -70,7 +70,7 @@ class Mainpage extends React.Component {
 
     render() {
         const { value } = this.state
-        // const { value_name } = this.state
+
         return (
             <App>
                 <Head>
@@ -91,7 +91,7 @@ class Mainpage extends React.Component {
                 </div>
                 <div id="moviesList">
                     <div id="listContainer">
-                        <List data={this.state.MoviesName}/>}
+                        <List data={this.state.MoviesName}/>
                     </div>
                 </div>
                 <script></script>

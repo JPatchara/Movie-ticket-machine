@@ -2,26 +2,18 @@ import React, { Component } from 'react'
 import 'semantic-ui-react'
 import { Button, Icon} from 'semantic-ui-react'
 import DetailsModal from './DetailsModal.js'
-import PaymentModal from './PaymentModal'
 
 class List extends Component {
     state = {
-      showModalDT: 0,
-      showModalPM: 0
+      showModal: 0
     }
   
     getModalDT = value => {
-      this.setState({ showModalDT: value });
-    }
-    getModalPM = value => {
-      this.setState({ showModalPM: value });
+      this.setState({ showModal: value });
     }
   
     hideModalDT = value => {
-      this.setState({ showModalDT: 0 });
-    }
-    hideModalPM = value => {
-      this.setState({ showModalPM: 0 });
+      this.setState({ showModal: 0 });
     }
   
     render() {
@@ -50,16 +42,11 @@ class List extends Component {
                         </Button>
                         
                         <DetailsModal
-                            show={this.state.showModalDT === data.id}
+                            show={this.state.showModal === data.id}
                             onHide={() => this.hideModalDT(data.id)}
                             name={data.name} image={data.image}
                             tagline={data.tagline}
                             price={data.price}
-                        />
-                        <PaymentModal
-                          show={this.state.showModalPM === data.id}
-                          onHide={() => this.hideModalPM(data.id)}
-                          name={data.name} price={data.price}
                         />
                     </div>
                 </div>

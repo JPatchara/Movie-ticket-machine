@@ -1,32 +1,38 @@
 import React, { Component } from "react";
 import 'semantic-ui-react'
-import { Icon, Header } from 'semantic-ui-react'
-import NumericInput from 'react-numeric-input';
-
+import { Icon, Header} from 'semantic-ui-react'
 class DetailsModal extends Component {
 
     constructor(props) {
         super(props)
         this.state = {
-            value: 0
+            value: 0,
+            totalPrice: 0,
+            checkOut: false
         }
-        this.doDecrement = this.doDecrement.bind(this);
-        this.doIncrement = this.doIncrement.bind(this);
-    }
-    handleChange(evt) {
-        const Total_Price = (evt.target.validity.valid) ? evt.target.value : this.state.Total_Price
-        this.setState({ Total_Price });
+        this.doDecrement = this.doDecrement.bind(this)
+        this.doIncrement = this.doIncrement.bind(this)
+        this.goCheckOut = this.goCheckOut.bind(this)
     }
 
     doDecrement() {
-        this.setState({value: this.state.value - 1,});
+        if(this.state.value > 0) {
+            this.setState({ value: this.state.value - 1 })
+            this.setState({ totalPrice: (this.state.value-1)*this.props.price })
+        }
     }
     doIncrement() {
         if(this.state.value < 60) {
-            this.setState({
-                value: this.state.value + 1,
-            });
+            this.setState({ value: this.state.value + 1 })
+            this.setState({totalPrice: (this.state.value+1)*this.props.price});
         }
+    }
+
+    goCheckOut = () => {
+        this.setState({ checkOut: true });
+    }
+    cancelCheckout = () => {
+        this.setState({ checkOut: false });
     }
 
     render() {
@@ -57,22 +63,74 @@ class DetailsModal extends Component {
                             </div>
                             <div>
                                 <p style={Total}>Total price:&nbsp;&nbsp;&nbsp;
-                                {this.state.value*this.props.price}&nbsp;&nbsp;&nbsp;
+                                {this.state.totalPrice}&nbsp;&nbsp;&nbsp;
                                 </p>
                             </div>
                         </div><hr/>
-                        <button className="ui blue button" style={okBTN}> 
+                        <button className="ui blue button" style={okBTN} onClick={this.goCheckOut}> 
                             <Icon className='money bill alternate' style={tagIcon}/>
                             Checkout
                         </button>
                         <button class="ui red button" style={cancelBTN} 
                             onClick={this.props.onHide}>Cancel
                         </button>
+
+                        <PaymentModal show={this.state.checkOut}
+                            onClose={() => this.cancelCheckout()} 
+                            name={this.props.name} total={this.state.totalPrice}
+                        >
+                        </PaymentModal>
                     </div>
                 </div>
                 )}
             </React.Fragment>
       );
+    }
+}
+
+class PaymentModal extends Component {
+    
+    state = {
+        total_price: 0
+    };
+
+    // getChanges = () => {
+
+    // }
+
+    render() {
+
+        return (
+            <React.Fragment>
+                {this.props.show && (
+                <div className='bg' style={paymentBG}>
+                    <div className="modal" style={paymentModal}>
+                        <div className="content" style={paymentContent}>
+                            <div className="conclusion">
+                                <p style={ccsName}>You are buying ticket for " {this.props.name} ".</p>
+                                <p style={ccsPrice}>
+                                    <Icon className='payment'/>&nbsp;
+                                    Total price is &nbsp;&nbsp;&nbsp;
+                                    {this.props.total}&nbsp;&nbsp;&nbsp; Baht.
+                                </p>
+                                <div style={paymentInputBG}>
+                                    <p style={paymentInputText}>Please tab your payment here:</p>
+                                    <input style={paymentInput} type="number" min="0"></input>
+                                </div>
+                            </div>
+                        </div>
+                    <button className="ui blue button" style={submitBTN}> 
+                        <Icon className='money bill alternate'/>
+                        Submit
+                    </button>
+                    <button class="ui red button" style={backBTN} 
+                        onClick={this.props.onClose}> Back
+                    </button>
+                </div>
+            </div>
+            )}
+            </React.Fragment>
+        );
     }
 }
 
@@ -199,6 +257,71 @@ const minusBtn ={
     width: '5.5vmin',
     height: '6vmin',
     background: 'rgba(255,255,102,0.6)',
+    borderRadius: '2vmin 0.2vmin 0.2vmin 2vmin'
+}
+
+const paymentBG = {
+    position: 'fixed',
+    zIndex: '2',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    left: '0',
+    top: '0',
+    width: '100%',
+    height: '100%',
+    overflow: 'auto',
+    background: 'rgba(0,51,51,1)'
+}
+const paymentModal = {
+    zIndex: '3',
+    borderRadius: '1vmin 6vmin 1vmin 6vmin',
+    maxWidth: '195vmin',
+    maxHeight: '200vmin',
+    padding: '2.5vmin',
+    boxShadow: '0 10px 30px 0 rgba(127, 127, 127, 0.3)',
+    background: 'rgb(255, 255, 255)'
+}
+const paymentContent = {
+    display: 'inline'
+}
+const ccsName = {
+    color: 'black',
+    fontSize: '4vmin'
+}
+const ccsPrice = {
+    color: 'black',
+    fontSize: '2.5vmin'
+}
+const submitBTN = {
+    float: 'right',
+    marginTop: '7vmin'
+}
+const backBTN = {
+    float: 'left',
+    width: '18vmin',
+    marginTop: '7vmin',
+    borderRadius: '0.7vmin 0.7vmin 0.7vmin 3vmin'
+}
+const paymentInputBG = {
+    position: 'relative',
+    marginLeft: '20vmin',
+    marginRight: '18vmin',
+    marginTop: '3vmin',
+    width: '45vmin',
+    overflow: 'hidden',
+    height: '20vmin',
+    top: '2vmin',
+    background: 'rgba(0,153,255,0.7)',
+    borderRadius: '1vmin 6vmin 1vmin 6vmin'
+}
+const paymentInputText = {
+    color: 'black',
+    padding: '2vmin'
+}
+const paymentInput = {
+    padding: '2vmin',
+    marginLeft: '8vmin',
     borderRadius: '2vmin 0.2vmin 0.2vmin 2vmin'
 }
 
