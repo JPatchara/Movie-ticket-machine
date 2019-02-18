@@ -20,5 +20,5 @@
 <hr/>
 
 # Deployment:
-
+* ## The project URL: https://movieticketmachine-patchara.firebaseapp.com/
 <hr/>

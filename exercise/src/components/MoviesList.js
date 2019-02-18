@@ -22,11 +22,10 @@ class List extends Component {
           {this.props.data.map((data, key) => (
             <div className="item" key={key} style={listBG}> 
                 <div className="image" style={divImage}>
-                    <img style={listImage} 
-                    src={data.image}/>
+                    <img style={listImage} src={data.image} alt=""/>
                 </div>
-                <div className="content" >
-                    <a className="header" style={{marginTop: 2+'vmin'}}>{data.name}</a>
+                <div className="content" style={content}>
+                    <p className="header" style={{marginTop: 2+'vmin'}}>{data.name}</p>
                     <div className="meta" style={{marginTop: 3+'vmin'}}>
                         <span className="cinema">{data.tagline}</span>
                     </div>
@@ -58,24 +57,33 @@ class List extends Component {
 }
 
 const listBG = {
-    backgroundColor:'rgba(117, 174, 187, 0.34)',
-    height:'32vmin'
+  backgroundColor:'rgba(117, 174, 187, 0.34)',
+  height:'32vmin',
+  display: 'flex'
 }
 const divImage = {
-    float: 'top',
-    bottom: '3vmin'
+  position: 'relative',
+  float: 'top',
+  bottom: '3vmin',
+  display: 'flex',
+  width: '18.5vmin',
+  height: '26vmin'
 }
 const listImage = {
-    position: 'relative',
-    width: '18.5vmin',
-    height: '26vmin'
+  position: 'relative',
+  maxwidth: '18.5vmin',
+  maxheight: '26vmin'
 }
 const btn = {
-    marginRight: '1em',
-    marginTop: '-0.5em'
+  marginRight: '1em',
+  marginTop: '-0.5em'
 }
 const icon = {
-    marginRight: '2vmin'
+  marginRight: '2vmin'
+}
+const content = {
+  position: 'relative',
+  marginLeft: '8vmin'
 }
 
 export default List;

@@ -1,17 +1,34 @@
 {
-  "name": "exercise",
-  "version": "1.0.0",
-  "main": "index.js",
-  "license": "MIT",
+  "name": "movie-ticket-machine",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "firebase": "^5.8.3",
+    "react": "^16.8.2",
+    "react-dom": "^16.8.2",
+    "react-router-dom": "^4.3.1",
+    "react-scripts": "2.1.5",
+    "semantic-ui-react": "^0.85.0"
+  },
   "scripts": {
-    "install": "yarn build-all",
-    "next": "yarn build-firebase && cd \"src/app\" && yarn && yarn dev",
-    "preserve": "yarn build-all",
-    "serve": "firebase serve",
-    "predeploy": "yarn build-all",
-    "deploy": "firebase deploy",
-    "build-all": "yarn build-next && yarn build-firebase",
-    "build-next": "cd \"src/app\" && yarn && yarn build",
-    "build-firebase": "cd \"src/functions\" && yarn"
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ],
+  "devDependencies": {
+    "babel-jest": "^24.1.0",
+    "enzyme": "^3.9.0",
+    "enzyme-adapter-react-16": "^1.9.1",
+    "jest": "^24.1.0"
   }
 }

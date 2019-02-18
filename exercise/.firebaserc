@@ -1,6 +1,6 @@
 {
   "projects": {
-    "JPatchara": "movieticketmachine-patchara",
-    "default": "movieticketmachine-patchara"
+    "default": "movieticketmachine-patchara",
+    "patchara": "movieticketmachine-patchara"
   }
 }

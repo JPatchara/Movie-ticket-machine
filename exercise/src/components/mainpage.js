@@ -1,10 +1,10 @@
-import App from "../components/App"
-import Head from 'next/head'
+// import App from "../components/App"
 import React from 'react'
 import { Dropdown, Divider } from 'semantic-ui-react'
 import 'semantic-ui-react'
 import fireST from '../configs/firestore'
-import List from '../components/MoviesList'
+import List from './MoviesList'
+import '../static/styles/mainpage.css'
 
 // Main page render
 class Mainpage extends React.Component {
@@ -24,15 +24,15 @@ class Mainpage extends React.Component {
         this.setState({ value: value })
         var selection_sortby = value
 
-        if (selection_sortby == 'Price(Lower)') {
+        if (selection_sortby === 'Price(Lower)') {
             this.unsubscribe = this.ref.orderBy('Price', 'asc').onSnapshot(this.onCollectionUpdate);
-        } else if (selection_sortby == 'Price(Higher)') {
+        } else if (selection_sortby === 'Price(Higher)') {
             this.unsubscribe = this.ref.orderBy('Price', 'desc').onSnapshot(this.onCollectionUpdate);
-        } else if (selection_sortby == 'Date & Time(Older)') {
+        } else if (selection_sortby === 'Date & Time(Older)') {
             this.unsubscribe = this.ref.orderBy('Date', 'desc').onSnapshot(this.onCollectionUpdate);
-        } else if (selection_sortby == 'Date & Time(Newer)') {
+        } else if (selection_sortby === 'Date & Time(Newer)') {
             this.unsubscribe = this.ref.orderBy('Date', 'asc').onSnapshot(this.onCollectionUpdate);
-        } else if (selection_sortby == 'none') {
+        } else if (selection_sortby === 'none') {
             this.unsubscribe = this.ref.onSnapshot(this.onCollectionUpdate);
         } else { this.unsubscribe = this.ref.onSnapshot(this.onCollectionUpdate); }
     }
@@ -72,16 +72,16 @@ class Mainpage extends React.Component {
         const { value } = this.state
 
         return (
-            <App>
-                <Head>
+            <div className="Mainpage">
+                <head>
                     <meta name="viewport" content="width=device-width, initial-scale=1" />
                     <meta charSet="utf-8" />
                     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css"/>
-                    <link rel="stylesheet" type="text/css" href="../static/styles/mainpage.css" />
-                </Head>
+                    <link rel="stylesheet" type="text/css" href="./static/styles/mainpage.css" />
+                </head>
                 <div id="menuBar">
                     <div id="textImg">
-                        <h3>MOVIES</h3>
+                        <h3 className="movieIcon">MOVIES</h3>
                     </div>
                     <Dropdown id="dropdownSort" placeholder='Sort by' fluid selection 
                      options={sortOptions} value={value} onChange={this.onChangeSortby}/>
@@ -95,7 +95,7 @@ class Mainpage extends React.Component {
                     </div>
                 </div>
                 <script></script>
-            </App>
+            </div>
         );
     }
 }

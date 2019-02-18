@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import 'semantic-ui-react'
-import { Icon, Header} from 'semantic-ui-react'
+import { Icon, Header } from 'semantic-ui-react'
 
 class DetailsModal extends Component {
 
@@ -47,7 +47,7 @@ class DetailsModal extends Component {
                     <div className="modal" style={divModal}><hr/>
                         <div className="content" style={content}>
                             <div className="image" style={divImg}>
-                                <img style={imgStyle} src={this.props.image}/>
+                                <img style={imgStyle} src={this.props.image} alt=""/>
                             </div>
                             <Header style={NameHeader}>{this.props.name}</Header>
                             <p style={Tagline}>{this.props.tagline}</p>
@@ -150,14 +150,14 @@ class PaymentModal extends Component {
                 if(cash[i] < 20) {
 
                     numCoins = numCoins + 1
-                    if (numCoins == 1) {
+                    if (numCoins === 1) {
                         coin[numCoins] = cash[i]
                     } else { coin[numCoins] = ", "+cash[i] }
 
                 } else if(cash[i] >= 20) {
 
                     numBills += 1
-                    if (numBills == 1) {
+                    if (numBills === 1) {
                         bill[numBills] = cash[i]
                     } else { bill[numBills] = ", "+cash[i] }
 
@@ -231,14 +231,16 @@ class EndProcessModal extends Component {
         }
         this.goEndProcess = this.goEndProcess.bind(this)
         this.Exit = this.Exit.bind(this)
-        this.BuyMore = this.BuyMore.bind(this)
     }
 
     goEndProcess = () => {
         this.setState({ submit: true })
     }
-    Exit() { window.location.href = '/' }
-    BuyMore() { window.location.href = '/mainpage' }
+
+    Exit() {
+        this.setState({ submit: false })
+        window.location.href = '/' 
+    }
 
     render() {
         return (
@@ -258,16 +260,12 @@ class EndProcessModal extends Component {
                             </p><br/>
                             <p style={bless}>Have a great time!!!</p><hr/>
                         </div>
-                    
-                    <button className="ui blue button" style={submitBTN}
-                        onClick={this.BuyMore}> Buy more 
-                    </button>
-                    <button class="ui red button" style={exitBTN} 
-                        onClick={this.Exit}> Exit
-                    </button>
+                        <button class="ui red button" style={exitBTN} 
+                            onClick={this.Exit}> Exit
+                        </button>
+                    </div>
                 </div>
-            </div>
-            )}
+                )}
             </React.Fragment>
         );
     }
@@ -302,7 +300,7 @@ const imgStyle = {
     position: 'relative',
     width: '27.5vmin',
     height: '38vmin',
-    right: '4.2vmin',
+    left: '-5vmin',
     top: '1.4vmin',
     marginBottom: '-8vmin',
     marginTop: '2vmin',
@@ -495,10 +493,11 @@ const endContent = {
     overflow: 'scroll'
 }
 const exitBTN = {
-    float: 'left',
+    margin: 'auto',
+    display: 'block',
     width: '18vmin',
     marginTop: '7vmin',
-    borderRadius: '0.7vmin 0.7vmin 0.7vmin 3vmin'
+    borderRadius: '0.7vmin 0.7vmin 0.7vmin 0.7vmin'
 }
 const thanks = {
     textAlign: 'center',
