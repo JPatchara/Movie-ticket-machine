@@ -1,7 +1,7 @@
 # Technologies:
 [ Technology และ Library ต่างๆกับเหตุผลที่เลือกใช้ ]
 * ## Libraries:
-    * ### React(JavaScript Library)
+    * ### React(JavaScript Library) ![Image](https://cdn-images-1.medium.com/max/1026/1*3SVfBkNZI2f-sspiq59xcw.png)
         - เพราะเกิดมาเพื่อสร้างภาพ(View) จากพื้นฐานแนวความคิดแบบ MVC(Model View Controller)โดยที่มีคุณสมบัติเด่นคือ การสร้าง component สำหรับ front-end และแนวคิดรักษ์โลกอย่าง Reusable เหล่า component 
         - รองรับการเขียนด้วย JSX (JavaScript syntax extension)
         - รองรับ ES6 (JavaScript ที่มีฟีเจอร์มากกว่าเหล่า Ecmascript รุ่นก่อนๆ ซึ่งช่วยให้เราเขียนโค้ดได้ง่ายขึ้น และสวยกว่าเดิมมาก ถ้าเทียบกับเขียน JavaScript แบบเดิมๆ)
@@ -10,14 +10,15 @@
 <br/><br/>
 ![Image](https://cdn-images-1.medium.com/max/2000/1*QK7cSH3i-OxqrUcXR-eXuQ.png) credit: https://medium.com/pirsquare/%E0%B8%9C%E0%B8%A1%E0%B9%80%E0%B8%A3%E0%B8%B5%E0%B8%A2%E0%B8%99%E0%B8%A3%E0%B8%B9%E0%B9%89%E0%B8%AD%E0%B8%B0%E0%B9%84%E0%B8%A3%E0%B8%88%E0%B8%B2%E0%B8%81-react-%E0%B8%9A%E0%B9%89%E0%B8%B2%E0%B8%87-fb9dd853f143
 * ## JavaScript environment:
-    * ### Node.js
+    * ### Node.js ![Image](https://i1.wp.com/www.algorithmtut.com/wp-content/uploads/2016/05/nodejs.png?fit=600%2C300&ssl=1)
         - เป็น JavaScript runtime environment ที่ทำงานได้ดีในส่วนของ Frontend Middleware และมี Package ให้เลือกใช้ในการพัฒนาเยอะแยะเต็มไปหมด แถมยังน่าใช้ และมี Community ผู้ใช้งานและพัฒนาที่แข็งแรง กว้่างขวาง
 * ## Hosting service:
-    * ### Firebase hosting
+    * ### Firebase hosting 
         - เพราะเป็น hosting หรือ Host static file service ซี่งเราสามารถทำเว็บง่ายๆด้วย static file อย่าง HTML, JavaScript, CSS เนียบๆขึ้นไปวาง Host ไว้บน Firebase ได้ฟรี **ฟรี!!** ซึ่งตัว hosting นี้ก็รองรับการทำ SPA ได้ หมายความว่าเราสามารถเขียนเว็บของเราด้วย Angular, React, หรือ Vue.js และไปวาง Host ไว้ได้เลยฟรีๆ
         - เนื่องจาก scope งานไม่ใหญ่มาก และ back-end service ก็สามารถใช้ของ Firebase service ต่างๆได้เลยอย่าง real-time database, cloud firestore, firebase storage, etc.
 * ## Testing tool:
     * ### Jest
+        - เพราะเป็น library ที่ใช้สำหรับเขียน unit test ที่ดี ใช้งานง่าย มีฟีเจอร์ mock test และนิยมมากสำหรับผู้พัฒนาโปรแกรมโดยใช้ React
 * ## Database(No-SQL):
     * ### Firebase database(Cloud Firestore)
         - ใช้งานง่าย ฟรี และอยู่ในขอบเขตบริการของ Firebase ซี่งใช้งานร่วมกับบริการอื่นๆของ Firebase ได้สะดวก
@@ -29,7 +30,7 @@
 <hr/>
 
 # Architecture Design:
-- การออกแบบ Architecture ของตัวโปรแกรมนั้น ออกแบบโดยใช้ ฟีเจอร์ของโปรแกรมเป็นพื้นฐาน ซี่ง Information Architecture มีดังนี้
+- การออกแบบของตัวโปรแกรมนั้น ออกแบบโดยใช้ ฟีเจอร์ของโปรแกรมเป็นพื้นฐาน ซี่ง Information Architecture มีดังนี้
     
     1. <หน้าต้อนรับ> สามารถแสดงโลโก้ ของผู้ให้บริการ และปุ่มสำหรับ การกดเข้าใช้บริการ
     2. <หน้าหลัก> แสดงรายการภาพยนต์ที่มีทั้งหมด โดยจะมีส่วนของการเลือกแสดงรายการภาพยนต์ ทั้งจากการค้นหาจากชื่อภาพยนต์ และแสดงรายการโดยเรียงจากวันเวลา หรือราคา รวมถึงปุ่มสำหรับกดเลือกซื้อบัตรของภาพยนต์นั้นๆ
@@ -86,7 +87,7 @@
 <hr/>
 
 # Deployment:
-*   Deploy ขึ้นไปยัง Firebase Hosting ผ่านการรันคำสั่ง build ตัว project ภายใน src directory ไปเก็บไว้ใน build directory แล้วจึงรันคำสั่ง firebase deploy เพื่ออัพโหลด static files ที่ build มาไปยัง hosting ตามที่ได้ตั้งค่าเอาไว้ ซี่งเมื่อ deploy สำเร็จก็จะได้ URL ที่มี URL path ตามที่ได้เซ็ตไว้ตอน firebase init แล้ว install ตัว hosting กลับมา
+*   Deploy ตัว project ขึ้นไปยัง Firebase Hosting ผ่านการรันคำสั่ง build ทั้ง project ภายใน src directory ไปเก็บไว้ใน build directory(ตั้งค่า path ไว้ที่ directory ชื่อ build) แล้วจึงรันคำสั่ง firebase deploy เพื่ออัพโหลด static files ที่ build มาไปยัง hosting ตามที่ได้ตั้งค่าเอาไว้ ซี่งเมื่อ deploy สำเร็จก็จะได้ URL ที่มี URL path ตามที่ได้เซ็ตไว้ตอน firebase init แล้ว install ตัว hosting กลับมา
 
 <br/>  >>  The project URL: https://movieticketmachine-patchara.firebaseapp.com/
 
