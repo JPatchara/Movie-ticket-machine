@@ -13,8 +13,10 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage --colors"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -26,9 +28,20 @@
     "not op_mini all"
   ],
   "devDependencies": {
-    "babel-jest": "^24.1.0",
+    "@babel/core": "^7.3.3",
+    "@babel/plugin-proposal-class-properties": "^7.3.3",
+    "@babel/polyfill": "^7.2.5",
+    "@babel/preset-env": "^7.3.1",
+    "@babel/preset-react": "^7.0.0",
+    "babel-core": "^7.0.0-bridge.0",
     "enzyme": "^3.9.0",
     "enzyme-adapter-react-16": "^1.9.1",
     "jest": "^24.1.0"
+  },
+  "jest": {
+    "moduleNameMapper": {
+      "^.+\\.(css|scss)$": "<rootDir>/src/mocks/styleMock.js",
+      "^.+\\.(gif|ttf|eot|svg|png)$": "<rootDir>/src/mocks/fileMock.js"
+    }
   }
 }
