@@ -9,6 +9,9 @@
         - มี component lifecycle ในการทำงาน ที่เป็นขั้นเป็นตอนดูดีมีระเบียบ ตามรูปด้านล่างนี้
 <br/><br/>
 ![Image](https://cdn-images-1.medium.com/max/2000/1*QK7cSH3i-OxqrUcXR-eXuQ.png) credit: https://medium.com/pirsquare/%E0%B8%9C%E0%B8%A1%E0%B9%80%E0%B8%A3%E0%B8%B5%E0%B8%A2%E0%B8%99%E0%B8%A3%E0%B8%B9%E0%B9%89%E0%B8%AD%E0%B8%B0%E0%B9%84%E0%B8%A3%E0%B8%88%E0%B8%B2%E0%B8%81-react-%E0%B8%9A%E0%B9%89%E0%B8%B2%E0%B8%87-fb9dd853f143
+* ## JavaScript environment:
+    * ### Node.js
+        - เป็น JavaScript runtime environment ที่ทำงานได้ดีในส่วนของ Frontend Middleware และมี Package ให้เลือกใช้ในการพัฒนาเยอะแยะเต็มไปหมด แถมยังน่าใช้ และมี Community ผู้ใช้งานและพัฒนาที่แข็งแรง กว้่างขวาง
 * ## Hosting service:
     * ### Firebase hosting
         - เพราะเป็น hosting หรือ Host static file service ซี่งเราสามารถทำเว็บง่ายๆด้วย static file อย่าง HTML, JavaScript, CSS เนียบๆขึ้นไปวาง Host ไว้บน Firebase ได้ฟรี **ฟรี!!** ซึ่งตัว hosting นี้ก็รองรับการทำ SPA ได้ หมายความว่าเราสามารถเขียนเว็บของเราด้วย Angular, React, หรือ Vue.js และไปวาง Host ไว้ได้เลยฟรีๆ
@@ -47,7 +50,39 @@
     npm install
     ```
 * ### Firebase installation:
+    - หากยังไม่มี account หรือยังไม่ได้ทำการ login firebase สามารถจัดการก่อนได้เลยที่
+    ```
+    https://firebase.google.com
+    ```
+    - หลังจาก login firebase แล้วก็เข้าที่ Go to console ได้เลย
+    <br/><br/>
+![Image](https://cdn-images-1.medium.com/max/800/1*bz8kinZAKPL89ttoPysqbA.png)
 
+    - ต้องการสร้าง project สามารถทำตามในนี้ได้เลย
+    ```
+    https://medium.com/jed-ng/firebase-%E0%B8%84%E0%B8%B7%E0%B8%AD%E0%B8%AD%E0%B8%B0%E0%B9%84%E0%B8%A3-%E0%B8%A1%E0%B8%B2%E0%B8%94%E0%B8%B9%E0%B8%A7%E0%B8%B4%E0%B8%98%E0%B8%B5%E0%B8%AA%E0%B8%A3%E0%B9%89%E0%B8%B2%E0%B8%87-project-%E0%B9%81%E0%B8%A5%E0%B8%B0%E0%B8%97%E0%B8%B3%E0%B8%84%E0%B8%A7%E0%B8%B2%E0%B8%A1%E0%B8%A3%E0%B8%B9%E0%B9%89%E0%B8%88%E0%B8%B1%E0%B8%81%E0%B8%81%E0%B8%B1%E0%B8%9A-firebase-d48bfac67b14
+    ```
+
+    - ต้องการใช้งาน Cloud Firestore ก็จัดไปแบบละเอียดๆกับ
+    ```
+    https://medium.com/firebasethailand/%E0%B9%80%E0%B8%82%E0%B9%89%E0%B8%A1%E0%B8%82%E0%B9%89%E0%B8%99%E0%B8%81%E0%B8%B1%E0%B8%9A-firebase-cloud-firestore-%E0%B8%A3%E0%B8%B0%E0%B8%9A%E0%B8%9A%E0%B8%90%E0%B8%B2%E0%B8%99%E0%B8%82%E0%B9%89%E0%B8%AD%E0%B8%A1%E0%B8%B9%E0%B8%A5%E0%B8%97%E0%B8%B5%E0%B9%88%E0%B9%80%E0%B8%9B%E0%B8%B4%E0%B8%94%E0%B8%95%E0%B8%B1%E0%B8%A7%E0%B9%83%E0%B8%AB%E0%B8%A1%E0%B9%88%E0%B8%A5%E0%B9%88%E0%B8%B2%E0%B8%AA%E0%B8%B8%E0%B8%94%E0%B8%88%E0%B8%B2%E0%B8%81-firebase-%E0%B9%81%E0%B8%9A%E0%B8%9A%E0%B8%88%E0%B8%B1%E0%B8%94%E0%B9%80%E0%B8%95%E0%B9%87%E0%B8%A1-d001e43e2be7
+    ```
+    - จากนั้นก็มาติดตั้ง firebase ใน project ของเราโดยเริ่มจากการ
+    ```
+    npm install -g firebase-tools
+    ```
+    - ตามมาด้วย
+    ```
+    firebase login //เพื่อทำการเข้าใช้งาน firebase
+    firebase init //เริ่มต้นลง firebase service ใน project ของเรา
+    ```
+    สามารถศึกษารายละเอียดเพิ่มเติมได้ที่: https://firebase.google.com/docs/cli/
+
+    - หลังจาก firebase init แล้วคุณก็จะพบกับ
+    ![Image](https://nrempel.com/img/0003-using-firebase-cli-tools-to-deploy-a-web-application/step_1.png)
+    ต้องการใช้งานอะไรก็เลือกได้ตามใจชอบเลย
+    <br/>ต้องการใช้งาน hosting service สามารถเรียกใช้งานตามนี้ได้เลย
+    <br/>https://devahoy.com/posts/how-to-deploy-react-app-with-firebase-hosting/
 <hr/>
 
 # Deployment:
